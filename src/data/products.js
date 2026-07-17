@@ -2,7 +2,7 @@ import { IMG } from './images'
 
 // Laser-Tech style catalog: category (tabs) -> sub-category (sidebar) -> products (grid)
 export const CATEGORIES = [
-  { id: 'pipes', name: 'Pipes & Tubes', img: IMG.pipes, subs: ['Seamless', 'Welded', 'ERW'] },
+  { id: 'pipes', name: 'Pipes & Tubes', img: IMG.pipes, subs: ['Seamless', 'Welded', 'ERW', 'Hydraulic', 'Instrumentation'] },
   { id: 'flanges', name: 'Flanges', img: IMG.flanges, subs: ['Weld Neck', 'Slip-On', 'Blind', 'Socket Weld'] },
   { id: 'bars', name: 'Round Bars', img: IMG.roundBars, subs: ['Round Bar', 'Hex Bar', 'Square Bar'] },
   { id: 'fasteners', name: 'Fasteners', img: IMG.fasteners, subs: ['Bolts', 'Nuts', 'Studs', 'Washers'] },
@@ -10,7 +10,7 @@ export const CATEGORIES = [
   { id: 'beam', name: 'Beam & Channel', img: IMG.beam, subs: ['Beam', 'Channel', 'Angle'] },
 ]
 
-export const PRODUCTS = [
+const BASE_PRODUCTS = [
   // Pipes & Tubes
   { id: 1, name: 'Seamless Pipe', cat: 'pipes', sub: 'Seamless', img: IMG.pipes, standard: 'ASTM A312', size: '1/2"–24"', grade: 'SS 304/316', desc: 'Precision seamless pipes for high-pressure, corrosion-critical piping systems.' },
   { id: 2, name: 'Welded Pipe', cat: 'pipes', sub: 'Welded', img: IMG.pipes, standard: 'ASTM A358', size: '6"–48"', grade: 'SS 304L/316L', desc: 'Large-bore welded pipes for structural and process applications.' },
@@ -50,3 +50,21 @@ export const PRODUCTS = [
   { id: 41, name: 'ISMC Channel', cat: 'beam', sub: 'Channel', img: IMG.beam, standard: 'IS 2062', size: '75–400 mm', grade: 'E250 / A36', desc: 'C-channels for frames, supports and structural steelwork.' },
   { id: 42, name: 'Equal Angle', cat: 'beam', sub: 'Angle', img: IMG.beam, standard: 'IS 2062', size: '25–200 mm', grade: 'E250 / A36', desc: 'Equal and unequal angles for bracing and structural connections.' },
 ]
+
+// Demo products — 5 per category, added to each category's first sub-category so the
+// default catalog view is tall enough to demonstrate the sticky-sidebar scroll effect.
+const DEMO_PRODUCTS = CATEGORIES.flatMap((c, ci) =>
+  Array.from({ length: 4 }, (_, i) => ({
+    id: 1000 + ci * 10 + i + 1,
+    name: `Demo ${i + 1}`,
+    cat: c.id,
+    sub: c.subs[0],
+    img: c.img,
+    standard: 'Demo spec',
+    size: '—',
+    grade: '—',
+    desc: `Placeholder ${c.name.toLowerCase()} product for layout preview — replace with a real item.`,
+  }))
+)
+
+export const PRODUCTS = [...BASE_PRODUCTS, ...DEMO_PRODUCTS]

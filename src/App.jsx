@@ -20,7 +20,7 @@ import FloatingActions from './components/FloatingActions'
 
 export default function App() {
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-clip">
       <Navbar />
       <main>
         {/* 1. Hero — Airkom slider */}

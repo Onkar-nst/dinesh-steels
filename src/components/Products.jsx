@@ -333,9 +333,9 @@ export default function Products() {
   return (
     <section
       id="products"
-      className="py-20 md:py-28 bg-gradient-to-br from-ink-950 via-ink-900 to-ink-950 relative"
+      className="pt-20 pb-10 md:pt-28 md:pb-12 bg-gradient-to-br from-ink-950 via-ink-900 to-ink-950 relative"
     >
-      <div ref={productsRef} className="px-6 md:px-12 lg:px-16">
+      <div ref={productsRef} className="px-4 sm:px-6">
         {/* HEADER */}
         <div className="text-center mb-12 lg:mb-16">
           <h2 className="text-4xl lg:text-6xl font-normal font-primary text-white mb-5 tracking-tight">
@@ -447,9 +447,10 @@ export default function Products() {
           </div>
         </div>
 
-        {/* DESKTOP GRID */}
-        <div className="hidden lg:grid grid-cols-5 gap-6 pb-16">
-          <aside className="bg-gradient-to-b from-ink-900 to-ink-950 p-6 border border-white/10 h-[600px] sticky top-24 flex flex-col shadow-2xl">
+        {/* DESKTOP GRID — sidebar sticks while the taller product column scrolls,
+            then releases and re-aligns with the last product (position: sticky). */}
+        <div className="hidden lg:grid grid-cols-5 items-start gap-6">
+          <aside className="sticky top-28 flex flex-col self-start border border-white/10 bg-gradient-to-b from-ink-900 to-ink-950 p-6 shadow-2xl">
             <h4 className="text-xl mb-6 font-primary text-white/80 flex items-center gap-3 pb-4 border-b border-white/10">
               <div className="p-2 bg-accent/10 border border-accent/30">
                 <Grid className="w-5 h-5 text-accent" />
@@ -457,7 +458,7 @@ export default function Products() {
               <span>Sub Categories</span>
             </h4>
 
-            <nav className="flex flex-col gap-2 overflow-y-auto pr-2">
+            <nav className="flex max-h-[70vh] flex-col gap-2 overflow-y-auto pr-2">
               {category?.subs.map((s) => (
                 <button
                   key={s}
@@ -502,7 +503,7 @@ export default function Products() {
               {paginatedProducts.map((p) => (
                 <div
                   key={p.id}
-                  className="group bg-gradient-to-b from-ink-900 to-ink-950 overflow-hidden border border-white/10 hover:border-white/20 transition-all hover:shadow-2xl hover:shadow-accent-900/20"
+                  className="group flex flex-col bg-gradient-to-b from-ink-900 to-ink-950 overflow-hidden border border-white/10 hover:border-white/20 transition-all hover:shadow-2xl hover:shadow-accent-900/20"
                 >
                   <div className="relative h-80 bg-ink-950 overflow-hidden">
                     {p.img ? (
@@ -523,13 +524,13 @@ export default function Products() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-40" />
                   </div>
 
-                  <div className="p-6">
+                  <div className="flex flex-1 flex-col p-6">
                     <h3 className="text-3xl font-primary font-medium text-white mb-2">{p.name}</h3>
                     <p className="text-md text-white/70 font-secondary mb-5 leading-relaxed line-clamp-2">
                       {p.desc}
                     </p>
 
-                    <div className="flex w-full gap-3 mt-2 font-secondary">
+                    <div className="mt-auto flex w-full gap-3 pt-2 font-secondary">
                       <button
                         onClick={() => openEnquiry(p)}
                         className="flex-1 px-6 py-3.5 font-semibold border border-white/40 bg-accent hover:bg-accent-700 text-white flex items-center justify-center gap-2"
@@ -607,7 +608,7 @@ export default function Products() {
           {paginatedProducts.map((p) => (
             <div
               key={p.id}
-              className="group bg-gradient-to-b from-ink-900 to-ink-950 overflow-hidden border border-white/10 hover:border-white/20 transition-all"
+              className="group flex flex-col bg-gradient-to-b from-ink-900 to-ink-950 overflow-hidden border border-white/10 hover:border-white/20 transition-all"
             >
               <div className="relative h-56 bg-ink-950 overflow-hidden">
                 {p.img ? (
@@ -628,11 +629,11 @@ export default function Products() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
               </div>
 
-              <div className="p-5">
+              <div className="flex flex-1 flex-col p-5">
                 <h3 className="text-2xl font-medium text-white mb-2">{p.name}</h3>
                 <p className="text-md text-gray-400 mb-4 line-clamp-2">{p.desc}</p>
 
-                <div className="flex justify-center gap-4">
+                <div className="mt-auto flex justify-center gap-4">
                   <button
                     onClick={() => openEnquiry(p)}
                     className="flex-1 max-w-[180px] px-5 py-3 bg-accent text-white font-medium hover:bg-accent-700 transition-all border border-white/40 flex items-center justify-center gap-2"

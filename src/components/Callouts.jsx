@@ -24,37 +24,35 @@ const callouts = [
 
 export default function Callouts() {
   return (
-    <section className="grid grid-cols-1 gap-4 bg-ink-50 px-6 pb-6 pt-20 md:grid-cols-2 md:px-12 md:pt-28 lg:px-16 xl:grid-cols-3">
+    <section className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-6 bg-ink-50 px-6 pb-6 pt-20 md:grid md:snap-none md:grid-cols-2 md:overflow-visible md:px-12 md:pt-28 lg:px-16 xl:grid-cols-3">
       {callouts.map((c) => (
         <a
           key={c.h}
           href="#products"
-          className="group relative block aspect-[4/5] overflow-hidden rounded-2xl border border-ink-200/60 bg-white shadow-sm transition-all duration-300 hover:border-ink-300 hover:shadow-md"
+          className="group flex aspect-[4/5] w-[82%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-ink-200/60 bg-white shadow-sm transition-all duration-300 hover:border-ink-300 hover:shadow-md md:w-auto"
         >
-          {/* Inner image container (centered & bounded) */}
-          <div className="absolute inset-x-0 bottom-32 top-6 flex items-center justify-center px-8 py-4">
-            <div className="relative h-full w-full max-w-[580px] max-h-[820px]">
-              <img
-                src={img(c.img, 700)}
-                alt={c.h}
-                loading="lazy"
-                className="absolute inset-0 h-full w-full object-contain transition-transform duration-700 group-hover:scale-105"
-              />
-            </div>
+          {/* Full-bleed image (fills top, no gaps) */}
+          <div className="relative flex-1 overflow-hidden">
+            <img
+              src={img(c.img, 700)}
+              alt={c.h}
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            {/* Subtle top scrim so the arrow stays legible */}
+            <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/25 to-transparent" />
+            <span className="absolute right-4 top-4 z-20 grid h-9 w-9 place-items-center rounded-full bg-white/85 text-ink-700 shadow-sm backdrop-blur transition-all duration-300 group-hover:bg-accent group-hover:text-white">
+              <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
+            </span>
           </div>
 
-          {/* Text container at the bottom */}
-          <div className="absolute inset-x-0 bottom-0 border-t border-ink-100 bg-white p-6 md:p-8">
+          {/* Text block */}
+          <div className="border-t border-ink-100 bg-white p-6 md:p-8">
             <h3 className="mb-1.5 font-primary text-xl font-medium text-ink-900 transition-colors duration-300 group-hover:text-accent md:text-2xl">
               {c.h}
             </h3>
             <p className="max-w-sm text-xs leading-relaxed text-ink-500 md:text-sm">{c.p}</p>
           </div>
-
-          <ArrowUpRight
-            className="absolute right-6 top-6 z-20 h-5 w-5 text-ink-400 transition-colors group-hover:text-ink-600"
-            strokeWidth={1.5}
-          />
         </a>
       ))}
     </section>

@@ -94,8 +94,8 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Floating Vertical ENQUIRY tab on right edge */}
-      <div className="pointer-events-auto absolute right-0 top-1/2 z-30 -translate-y-1/2">
+      {/* Floating Vertical ENQUIRY tab on right edge (hidden on mobile) */}
+      <div className="pointer-events-auto absolute right-0 top-1/2 z-30 hidden -translate-y-1/2 sm:block">
         <a
           href="#contact"
           className="flex cursor-pointer select-none items-center gap-2 rounded-l-2xl border-y border-l border-white/10 bg-accent px-4 py-4 text-xs font-medium uppercase tracking-widest text-white shadow-lg transition-colors [writing-mode:vertical-lr] hover:bg-accent-700"
