@@ -4,9 +4,9 @@ import { img, IMG } from '../data/images'
 import Reveal from './ui/Reveal'
 import Counter from './ui/Counter'
 
-// "Why Dinesh Steels" — dark conviction section. Two-tone headline + supporting
+// "Why Jyothi Steels" — dark conviction section. Two-tone headline + supporting
 // image with animated proof stats on the left; icon-led value cards (from the
-// WHY data) on the right. Re-themed (ink/red) for Dinesh Steels.
+// WHY data) on the right. Re-themed (ink/red) for Jyothi Steels.
 const icons = [Boxes, BadgeCheck, Wrench, Clock]
 
 const proof = [
@@ -52,7 +52,7 @@ export default function WhyChooseUs() {
               <div className="group relative overflow-hidden rounded-2xl ring-1 ring-white/10 shadow-2xl shadow-ink-950/40">
                 <img
                   src={img(IMG.whyChoose, 1800)}
-                  alt="Ready stock of stainless steel tubes at the Dinesh Steels facility"
+                  alt="Ready stock of stainless steel tubes at the Jyothi Steels facility"
                   loading="lazy"
                   className="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -81,7 +81,7 @@ export default function WhyChooseUs() {
             <Reveal delay={0.2} className="mt-8">
               <a
                 href="#contact"
-                className="group inline-flex items-center gap-2.5 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-accent/25 transition-all hover:bg-accent-600 hover:shadow-accent/40"
+                className="group inline-flex items-center gap-2.5 rounded-lg bg-accent px-7 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-accent/25 transition-all hover:bg-accent-600 hover:shadow-accent/40"
               >
                 Partner with us
                 <ArrowRight

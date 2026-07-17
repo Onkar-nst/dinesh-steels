@@ -22,7 +22,7 @@ export default function Footer() {
         <div className="container-x flex flex-col items-center justify-between gap-6 py-10 lg:flex-row">
           <div>
             <h3 className="font-primary text-2xl font-bold text-white">
-              Stay updated with Dinesh Steels
+              Stay updated with Jyothi Steels
             </h3>
             <p className="mt-1 text-sm text-white/50">
               Product updates, new stock arrivals and technical notes — straight to your inbox.
@@ -51,10 +51,10 @@ export default function Footer() {
         <div className="lg:col-span-1">
           <a href="#home" className="flex items-center gap-2.5">
             <span className="grid h-10 w-10 place-items-center rounded-lg bg-accent font-primary text-lg font-extrabold text-white">
-              D
+              J
             </span>
             <span className="font-primary text-xl font-extrabold text-white">
-              DINESH<span className="text-accent">STEELS</span>
+              JYOTHI<span className="text-accent">STEELS</span>
             </span>
           </a>
           <p className="mt-5 text-sm leading-relaxed text-white/50">

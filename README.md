@@ -1,6 +1,6 @@
-# Dinesh Steels — Company Website
+# Jyothi Steels — Company Website
 
-A modern, animated marketing website for **Dinesh Steels** (steel & metal stockist, supplier
+A modern, animated marketing website for **Jyothi Steels** (steel & metal stockist, supplier
 and global exporter). Built with **React + Vite + Tailwind CSS + Framer Motion**.
 
 The section flow and component styles are modelled on three reference sites:
@@ -27,7 +27,7 @@ src/
     products.js           # product catalog (categories, sub-categories, products)
     images.js             # image path map
   components/             # one file per section + shared ui/ helpers
-public/img/               # all photos (self-hosted, swap for Dinesh Steels' own)
+public/img/               # all photos (self-hosted, swap for Jyothi Steels' own)
 ```
 
 ## Sections (top → bottom)
@@ -39,9 +39,9 @@ Weight Calculator · FAQ · CTA · Contact (quote form) · Footer · floating Wh
 ## Notes / TODO before going live
 
 - **Content is placeholder.** Replace company name/phone/email/address in `src/data/site.js`,
-  stats, testimonials, and product specs with real Dinesh Steels data.
+  stats, testimonials, and product specs with real Jyothi Steels data.
 - **Images are placeholders** sourced from Openverse (commercially-licensed / public-domain).
-  Replace the files in `public/img/` with Dinesh Steels' own product & facility photos
+  Replace the files in `public/img/` with Jyothi Steels' own product & facility photos
   (keep the same filenames and no code changes are needed). Verify licensing/attribution
   for any stock image you keep.
 - Forms currently show a success state on submit (no backend). Wire them to an email service

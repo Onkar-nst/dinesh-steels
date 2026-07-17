@@ -3,7 +3,7 @@ import { img, IMG } from '../data/images'
 
 // Ported from the provided Airkom "callouts" cards — same 4:5 cards, centered
 // contained image, bottom text block, hover scale + arrow. Re-themed (ink/red)
-// and re-contented for Dinesh Steels.
+// and re-contented for Jyothi Steels.
 const callouts = [
   {
     img: IMG.pipes,

@@ -138,7 +138,7 @@ function ProductEnquiryModal({ product, onClose }) {
             </p>
             <button
               onClick={onClose}
-              className="mt-8 px-8 py-3 bg-accent text-white text-sm font-semibold
+              className="mt-8 rounded-lg px-8 py-3 bg-accent text-white text-sm font-semibold
                          hover:bg-accent-700 transition-colors font-primary"
             >
               Close
@@ -241,7 +241,7 @@ function ProductEnquiryModal({ product, onClose }) {
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="mt-6 w-full py-3.5 bg-accent hover:bg-accent-700 disabled:opacity-60
+              className="mt-6 w-full rounded-lg py-3.5 bg-accent hover:bg-accent-700 disabled:opacity-60
                          text-white text-sm font-semibold transition-colors font-primary
                          flex items-center justify-center gap-2"
             >
@@ -358,7 +358,7 @@ export default function Products() {
                 setSub(c.subs[0])
                 setCurrentPage(1)
               }}
-              className={`px-8 py-3.5 font-medium transition-all duration-300 border border-white/20 ${
+              className={`rounded-lg px-8 py-3.5 font-medium transition-all duration-300 border border-white/20 ${
                 c.id === categoryId
                   ? 'bg-accent text-white shadow-lg hover:bg-accent-700'
                   : 'bg-black/40 text-white/80 hover:text-white hover:bg-black/60'
@@ -374,7 +374,7 @@ export default function Products() {
           <div className="relative">
             <button
               onClick={() => setMobileCatOpen(!mobileCatOpen)}
-              className="w-full px-5 py-4 bg-black/40 border border-white/10 text-white font-semibold flex justify-between items-center"
+              className="w-full rounded-lg px-5 py-4 bg-black/40 border border-white/10 text-white font-semibold flex justify-between items-center"
             >
               <span className="flex items-center gap-2">
                 <Grid className="w-5 h-5 text-accent-400" />
@@ -416,7 +416,7 @@ export default function Products() {
           <div className="relative">
             <button
               onClick={() => setMobileSubOpen(!mobileSubOpen)}
-              className="w-full px-5 py-4 bg-black/40 border border-white/10 text-white font-semibold flex justify-between items-center"
+              className="w-full rounded-lg px-5 py-4 bg-black/40 border border-white/10 text-white font-semibold flex justify-between items-center"
             >
               <span>{sub}</span>
               <ChevronDown
@@ -450,7 +450,7 @@ export default function Products() {
         {/* DESKTOP GRID — sidebar sticks while the taller product column scrolls,
             then releases and re-aligns with the last product (position: sticky). */}
         <div className="hidden lg:grid grid-cols-5 items-start gap-6">
-          <aside className="sticky top-28 flex flex-col self-start border border-white/10 bg-gradient-to-b from-ink-900 to-ink-950 p-6 shadow-2xl">
+          <aside className="sticky top-28 flex flex-col self-start rounded-lg border border-white/10 bg-gradient-to-b from-ink-900 to-ink-950 p-6 shadow-2xl">
             <h4 className="text-xl mb-6 font-primary text-white/80 flex items-center gap-3 pb-4 border-b border-white/10">
               <div className="p-2 bg-accent/10 border border-accent/30">
                 <Grid className="w-5 h-5 text-accent" />
@@ -467,7 +467,7 @@ export default function Products() {
                     setSub(s)
                     setCurrentPage(1)
                   }}
-                  className={`group w-full text-left px-4 py-3.5 font-semibold transition-all flex items-center justify-between ${
+                  className={`group w-full rounded-lg text-left px-4 py-3.5 font-semibold transition-all flex items-center justify-between ${
                     s === sub
                       ? 'bg-accent text-white shadow-lg hover:bg-accent-700'
                       : 'bg-black/40 text-white/80 hover:bg-black/60'
@@ -503,7 +503,7 @@ export default function Products() {
               {paginatedProducts.map((p) => (
                 <div
                   key={p.id}
-                  className="group flex flex-col bg-gradient-to-b from-ink-900 to-ink-950 overflow-hidden border border-white/10 hover:border-white/20 transition-all hover:shadow-2xl hover:shadow-accent-900/20"
+                  className="group flex flex-col bg-gradient-to-b from-ink-900 to-ink-950 overflow-hidden rounded-lg border border-white/10 hover:border-white/20 transition-all hover:shadow-2xl hover:shadow-accent-900/20"
                 >
                   <div className="relative h-80 bg-ink-950 overflow-hidden">
                     {p.img ? (
@@ -533,7 +533,7 @@ export default function Products() {
                     <div className="mt-auto flex w-full gap-3 pt-2 font-secondary">
                       <button
                         onClick={() => openEnquiry(p)}
-                        className="flex-1 px-6 py-3.5 font-semibold border border-white/40 bg-accent hover:bg-accent-700 text-white flex items-center justify-center gap-2"
+                        className="flex-1 rounded-lg px-6 py-3.5 font-semibold border border-white/40 bg-accent hover:bg-accent-700 text-white flex items-center justify-center gap-2"
                       >
                         <span>View</span>
                         <ArrowRight className="w-4 h-4" />
@@ -541,7 +541,7 @@ export default function Products() {
 
                       <button
                         onClick={() => openEnquiry(p)}
-                        className="flex-1 px-6 py-3.5 font-semibold border border-white/40 bg-accent hover:bg-accent-700 text-white flex items-center justify-center gap-2"
+                        className="flex-1 rounded-lg px-6 py-3.5 font-semibold border border-white/40 bg-accent hover:bg-accent-700 text-white flex items-center justify-center gap-2"
                       >
                         <Phone className="w-4 h-4" />
                         <span>Enquire</span>
@@ -558,7 +558,7 @@ export default function Products() {
                 <button
                   onClick={() => goToPage(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className="px-4 py-2 border border-white/20 rounded-md bg-black/50 text-white disabled:opacity-50"
+                  className="px-4 py-2 border border-white/20 rounded-lg bg-black/50 text-white disabled:opacity-50"
                 >
                   Previous
                 </button>
@@ -569,7 +569,7 @@ export default function Products() {
                     <button
                       key={page}
                       onClick={() => goToPage(page)}
-                      className={`px-4 py-2 border rounded-md ${
+                      className={`px-4 py-2 border rounded-lg ${
                         page === currentPage
                           ? 'bg-accent/30 border-accent text-white font-semibold'
                           : 'border-white/20 text-white hover:bg-white/10'
@@ -583,7 +583,7 @@ export default function Products() {
                 <button
                   onClick={() => goToPage(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className="px-4 py-2 border border-white/20 rounded-md bg-black/50 text-white disabled:opacity-50"
+                  className="px-4 py-2 border border-white/20 rounded-lg bg-black/50 text-white disabled:opacity-50"
                 >
                   Next
                 </button>
@@ -608,7 +608,7 @@ export default function Products() {
           {paginatedProducts.map((p) => (
             <div
               key={p.id}
-              className="group flex flex-col bg-gradient-to-b from-ink-900 to-ink-950 overflow-hidden border border-white/10 hover:border-white/20 transition-all"
+              className="group flex flex-col bg-gradient-to-b from-ink-900 to-ink-950 overflow-hidden rounded-lg border border-white/10 hover:border-white/20 transition-all"
             >
               <div className="relative h-56 bg-ink-950 overflow-hidden">
                 {p.img ? (
@@ -636,7 +636,7 @@ export default function Products() {
                 <div className="mt-auto flex justify-center gap-4">
                   <button
                     onClick={() => openEnquiry(p)}
-                    className="flex-1 max-w-[180px] px-5 py-3 bg-accent text-white font-medium hover:bg-accent-700 transition-all border border-white/40 flex items-center justify-center gap-2"
+                    className="flex-1 max-w-[180px] rounded-lg px-5 py-3 bg-accent text-white font-medium hover:bg-accent-700 transition-all border border-white/40 flex items-center justify-center gap-2"
                   >
                     <span>View</span>
                     <ArrowRight className="w-4 h-4" />
@@ -644,7 +644,7 @@ export default function Products() {
 
                   <button
                     onClick={() => openEnquiry(p)}
-                    className="flex-1 max-w-[180px] px-5 py-3 bg-accent text-white font-medium hover:bg-accent-700 transition-all border border-white/40 flex items-center justify-center gap-2"
+                    className="flex-1 max-w-[180px] rounded-lg px-5 py-3 bg-accent text-white font-medium hover:bg-accent-700 transition-all border border-white/40 flex items-center justify-center gap-2"
                   >
                     <span>Enquire</span>
                     <Phone className="w-4 h-4" />

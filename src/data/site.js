@@ -1,15 +1,15 @@
 import { IMG } from './images'
 
 export const COMPANY = {
-  name: 'Dinesh Steels',
+  name: 'Jyothi Steels',
   tagline: 'Precision Steel, Engineered for the World',
   phone: '+91 98200 00000',
   phoneHref: '+919820000000',
   whatsapp: '919820000000',
-  email: 'sales@dineshsteels.com',
-  email2: 'export@dineshsteels.com',
+  email: 'sales@jyothisteels.com',
+  email2: 'export@jyothisteels.com',
   address: 'Plot 21, Kalbadevi Industrial Estate, Mumbai, Maharashtra 400002, India',
-  website: 'www.dineshsteels.com',
+  website: 'www.jyothisteels.com',
 }
 
 // Trust strip (Airkom key-highlights style)
@@ -119,7 +119,7 @@ export const PROCESS = [
 export const TESTIMONIALS = [
   {
     quote:
-      'Dinesh Steels delivered our duplex flanges ahead of schedule with flawless documentation. Their MTC traceability is the best we have worked with.',
+      'Jyothi Steels delivered our duplex flanges ahead of schedule with flawless documentation. Their MTC traceability is the best we have worked with.',
     name: 'Ahmed Al-Rashid',
     role: 'Procurement Head',
     company: 'Gulf Petrochem, UAE',
@@ -171,7 +171,7 @@ export const CLIENTS = [
 // FAQ (FDC accordion)
 export const FAQ = [
   {
-    q: 'What products does Dinesh Steels supply?',
+    q: 'What products does Jyothi Steels supply?',
     a: 'We stock and export pipes & tubes, flanges, buttweld and forged fittings, fasteners, sheets & plates, round bars, dairy fittings and structural beams & channels across ferrous and non-ferrous metals.',
   },
   {

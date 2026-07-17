@@ -1,6 +1,6 @@
 // Self-hosted, topically-relevant images (in /public/img).
 // Sourced from Openverse (commercially-licensed / public-domain) and stored
-// locally so they always load and can be swapped for Dinesh Steels' own photos.
+// locally so they always load and can be swapped for Jyothi Steels' own photos.
 // The img() helper keeps the (name, width) call-signature the components use;
 // widths are ignored for local files (they are already optimised).
 export const img = (path) => path

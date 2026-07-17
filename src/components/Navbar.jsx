@@ -9,7 +9,7 @@ function Logo({ dark = false }) {
   return (
     <a href="#home" className="flex items-center gap-2.5 shrink-0">
       <span className="grid h-10 w-10 place-items-center rounded-lg bg-accent text-white font-primary font-extrabold text-lg shadow-md">
-        D
+        J
       </span>
       <span className="leading-none">
         <span
@@ -17,7 +17,7 @@ function Logo({ dark = false }) {
             dark ? 'text-ink-900' : 'text-white'
           }`}
         >
-          DINESH<span className="text-accent">STEELS</span>
+          JYOTHI<span className="text-accent">STEELS</span>
         </span>
         <span
           className={`block text-[10px] font-medium uppercase tracking-[0.28em] ${
@@ -121,7 +121,7 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <a
               href="#contact"
-              className="hidden sm:inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-accent-700 hover:-translate-y-0.5 hover:shadow-card-hover"
+              className="hidden sm:inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-accent-700 hover:-translate-y-0.5 hover:shadow-card-hover"
             >
               <MessageCircle className="h-4 w-4" />
               Get a Quote

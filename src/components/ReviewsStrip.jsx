@@ -1,7 +1,7 @@
 import { Star } from 'lucide-react'
 
 // Ported from the provided Airkom reviews strip — same marquee animation, sizes
-// and layout, re-themed (ink → brand red gradient) with Dinesh Steels reviews.
+// and layout, re-themed (ink → brand red gradient) with Jyothi Steels reviews.
 const reviews = [
   { text: 'Duplex flanges delivered ahead of schedule', author: 'Gulf Petrochem, UAE' },
   { text: 'Zero rejections across three years of supply', author: 'Coastal Power, India' },

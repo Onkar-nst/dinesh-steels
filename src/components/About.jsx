@@ -26,7 +26,7 @@ export default function About() {
           </p>
           <a
             href="#products"
-            className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:bg-accent-700 hover:-translate-y-0.5 hover:shadow-card-hover"
+            className="inline-flex items-center gap-2 rounded-lg bg-accent px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:bg-accent-700 hover:-translate-y-0.5 hover:shadow-card-hover"
           >
             About Us <ArrowUpRight className="h-4 w-4" strokeWidth={2} />
           </a>
@@ -36,7 +36,7 @@ export default function About() {
         <div className="relative">
           <img
             src={img(IMG.warehouse, 1200)}
-            alt="Dinesh Steels stockyard and warehouse"
+            alt="Jyothi Steels stockyard and warehouse"
             className="aspect-[4/3] w-full rounded-3xl object-cover object-center shadow-card"
           />
         </div>

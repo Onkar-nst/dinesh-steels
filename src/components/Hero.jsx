@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { img, IMG } from '../data/images'
 
 // Ported from the provided Airkom hero — same slider effect, sizes and animation,
-// re-themed (brand red) and re-contented for Dinesh Steels.
+// re-themed (brand red) and re-contented for Jyothi Steels.
 const slides = [
   {
     subtitle: 'Stockist · Supplier · Global Exporter',
@@ -85,7 +85,7 @@ export default function Hero() {
           <div className="pt-2">
             <a
               href="#products"
-              className="inline-flex items-center gap-2 rounded-2xl bg-accent px-6 py-3.5 text-xs font-medium uppercase tracking-wider text-white shadow-md transition-all hover:bg-accent-700"
+              className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3.5 text-xs font-medium uppercase tracking-wider text-white shadow-md transition-all hover:bg-accent-700"
             >
               Explore Products
               <span className="text-[10px]">➔</span>
@@ -98,7 +98,7 @@ export default function Hero() {
       <div className="pointer-events-auto absolute right-0 top-1/2 z-30 hidden -translate-y-1/2 sm:block">
         <a
           href="#contact"
-          className="flex cursor-pointer select-none items-center gap-2 rounded-l-2xl border-y border-l border-white/10 bg-accent px-4 py-4 text-xs font-medium uppercase tracking-widest text-white shadow-lg transition-colors [writing-mode:vertical-lr] hover:bg-accent-700"
+          className="flex cursor-pointer select-none items-center gap-2 rounded-l-lg border-y border-l border-white/10 bg-accent px-4 py-4 text-xs font-medium uppercase tracking-widest text-white shadow-lg transition-colors [writing-mode:vertical-lr] hover:bg-accent-700"
         >
           ENQUIRY
         </a>
