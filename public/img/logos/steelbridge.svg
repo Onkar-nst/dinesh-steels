@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 198 48" width="198" height="48" role="img" aria-label="SteelBridge">
+  <rect x="2" y="4" width="40" height="40" rx="11" fill="#334155"/>
+  <g transform="translate(2 4)"><g fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round">
+    <line x1="6" y1="25" x2="34" y2="25"/><path d="M8 25C8 13 32 13 32 25"/>
+    <line x1="12" y1="25" x2="12" y2="33"/><line x1="28" y1="25" x2="28" y2="33"/>
+    <line x1="20" y1="14" x2="20" y2="25"/></g></g>
+  <text x="52" y="28" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="800" letter-spacing="-0.3">
+    <tspan fill="#1f2937">Steel</tspan><tspan fill="#334155">Bridge</tspan>
+  </text>
+  <text x="53" y="40" font-family="Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" letter-spacing="1.6" fill="#94a3b8">STRUCTURAL</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 184 48" width="184" height="48" role="img" aria-label="PowerGrid">
+  <rect x="2" y="4" width="40" height="40" rx="11" fill="#CA8A04"/>
+  <g transform="translate(2 4)"><path d="M23 4 11 23h7l-2 13 13-20h-7l3-12Z" fill="#fff"/></g>
+  <text x="52" y="28" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="800" letter-spacing="-0.3">
+    <tspan fill="#1f2937">Power</tspan><tspan fill="#CA8A04">Grid</tspan>
+  </text>
+  <text x="53" y="40" font-family="Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" letter-spacing="1.6" fill="#94a3b8">POWER &amp; UTILITIES</text>
+</svg>

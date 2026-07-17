@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 48" width="152" height="48" role="img" aria-label="AeroFab">
+  <rect x="2" y="4" width="40" height="40" rx="11" fill="#0369A1"/>
+  <g transform="translate(2 4)"><path d="M6 33 34 6 22 34l-3-9-13-1Z" fill="#fff" fill-opacity="0.96"/></g>
+  <text x="52" y="28" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="800" letter-spacing="-0.3">
+    <tspan fill="#1f2937">Aero</tspan><tspan fill="#0369A1">Fab</tspan>
+  </text>
+  <text x="53" y="40" font-family="Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" letter-spacing="1.6" fill="#94a3b8">AEROSPACE</text>
+</svg>
