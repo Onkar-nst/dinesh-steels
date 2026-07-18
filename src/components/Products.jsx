@@ -14,9 +14,194 @@ import {
   Loader2,
   Tag,
   Layers,
+  Ruler,
+  Award,
+  Boxes,
+  ShieldCheck,
+  CheckCircle2,
 } from 'lucide-react'
-import { CATEGORIES, PRODUCTS } from '../data/products'
+import { CATEGORIES, PRODUCTS, CATEGORY_HIGHLIGHTS } from '../data/products'
 import { img } from '../data/images'
+import { COMPANY } from '../data/site'
+
+/* -------------------------------------------------------
+   PRODUCT DETAIL MODAL
+   Two-column light popup: image + size panel on the left,
+   spec tiles / overview / highlights on the right, actions
+   pinned to the footer.
+---------------------------------------------------------*/
+function ProductDetailModal({ product, category, onClose, onEnquire }) {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [])
+
+  useEffect(() => {
+    const handler = (e) => e.key === 'Escape' && onClose()
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [onClose])
+
+  const specs = [
+    { icon: ShieldCheck, label: 'Standard', value: product.standard },
+    { icon: Ruler, label: 'Size Range', value: product.size },
+    { icon: Award, label: 'Grade', value: product.grade },
+    { icon: Boxes, label: 'Sub Category', value: product.sub },
+  ]
+
+  const highlights = product.highlights || CATEGORY_HIGHLIGHTS[product.cat] || []
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+      style={{ background: 'rgba(6,10,20,0.55)', backdropFilter: 'blur(3px)' }}
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+      role="dialog"
+      aria-modal="true"
+      aria-label={product.name}
+    >
+      <div
+        className="relative w-full max-w-5xl overflow-hidden rounded-3xl bg-[#f4f4f2] shadow-2xl"
+        style={{ maxHeight: '92vh' }}
+      >
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute right-4 top-4 z-20 grid h-9 w-9 place-items-center rounded-full bg-ink-900/10 text-ink-700 transition-colors hover:bg-ink-900/20"
+        >
+          <X className="h-4 w-4" />
+        </button>
+
+        <div
+          className="grid grid-cols-1 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]"
+          style={{ maxHeight: '92vh' }}
+        >
+          {/* LEFT — image + size panel */}
+          <div className="border-b border-ink-900/[0.07] p-6 md:border-b-0 md:border-r md:overflow-y-auto md:p-8">
+            <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-800 shadow-sm font-primary">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              {category?.name || product.cat}
+            </span>
+
+            <div className="rounded-2xl bg-white p-4 shadow-sm">
+              {product.img ? (
+                <img
+                  src={img(product.img, 700)}
+                  alt={product.name}
+                  className="aspect-[4/3] w-full rounded-xl object-cover"
+                />
+              ) : (
+                <div className="grid aspect-[4/3] w-full place-items-center rounded-xl bg-ink-50 text-ink-300">
+                  <Image className="h-12 w-12" />
+                </div>
+              )}
+            </div>
+
+            <div className="mt-5 rounded-xl bg-white p-5 shadow-sm">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-400 font-primary">
+                Size Range
+              </p>
+              <p className="mt-1.5 text-lg font-semibold text-ink-900 font-primary">
+                {product.size}
+              </p>
+            </div>
+
+            <p className="mt-5 text-sm text-ink-500 font-secondary">{product.grade}</p>
+          </div>
+
+          {/* RIGHT — specs, overview, highlights, actions */}
+          <div className="flex flex-col" style={{ maxHeight: '92vh' }}>
+            <div className="flex-1 overflow-y-auto">
+              <div className="px-6 pb-6 pt-6 md:px-9 md:pt-8">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-400 font-primary">
+                  {product.sub}
+                </p>
+                <h2 className="mt-2 pr-10 font-primary text-2xl font-bold leading-tight text-ink-900 md:text-3xl">
+                  {product.name}
+                </h2>
+              </div>
+
+              {/* Spec tiles */}
+              <div className="border-t border-ink-900/[0.07] px-6 py-6 md:px-9">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  {specs.map((s) => (
+                    <div
+                      key={s.label}
+                      className="flex items-center gap-3 rounded-xl bg-white p-4 shadow-sm"
+                    >
+                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-ink-50 text-accent">
+                        <s.icon className="h-4 w-4" strokeWidth={1.75} />
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-400 font-primary">
+                          {s.label}
+                        </p>
+                        <p className="truncate text-sm font-semibold text-ink-900 font-primary">
+                          {s.value}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Overview */}
+              <div className="border-t border-ink-900/[0.07] px-6 py-6 md:px-9">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-400 font-primary">
+                  Overview
+                </p>
+                <p className="mt-3 text-[15px] leading-relaxed text-ink-700 font-secondary">
+                  {product.desc}
+                </p>
+
+                {highlights.length > 0 && (
+                  <>
+                    <p className="mt-7 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-400 font-primary">
+                      Highlights
+                    </p>
+                    <ul className="mt-3 space-y-2.5">
+                      {highlights.map((h) => (
+                        <li key={h} className="flex items-start gap-3">
+                          <CheckCircle2
+                            className="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                            strokeWidth={2}
+                          />
+                          <span className="text-[15px] leading-snug text-ink-700 font-secondary">
+                            {h}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Footer actions */}
+            <div className="flex shrink-0 flex-col gap-3 border-t border-ink-900/[0.07] bg-[#f4f4f2] px-6 py-5 sm:flex-row md:px-9">
+              <button
+                onClick={onEnquire}
+                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-ink-900 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-ink-800 font-primary"
+              >
+                <span>Enquire Now</span>
+                <ArrowRight className="h-4 w-4" />
+              </button>
+              <a
+                href={`tel:${COMPANY.phoneHref}`}
+                className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-ink-900/15 bg-white px-6 py-3.5 text-sm font-semibold text-ink-800 transition-colors hover:bg-ink-50 font-primary sm:flex-none sm:px-8"
+              >
+                <Phone className="h-4 w-4" />
+                <span>Call Us</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 /* -------------------------------------------------------
    PRODUCT ENQUIRY MODAL
@@ -274,6 +459,7 @@ function ProductEnquiryModal({ product, onClose }) {
 ---------------------------------------------------------*/
 export default function Products() {
   const [enquiryProduct, setEnquiryProduct] = useState(null)
+  const [detailProduct, setDetailProduct] = useState(null)
   const [categoryId, setCategoryId] = useState(CATEGORIES[0].id)
   const [sub, setSub] = useState(CATEGORIES[0].subs[0])
   const [mobileCatOpen, setMobileCatOpen] = useState(false)
@@ -333,7 +519,7 @@ export default function Products() {
   return (
     <section
       id="products"
-      className="pt-20 pb-10 md:pt-28 md:pb-12 bg-gradient-to-br from-ink-950 via-ink-900 to-ink-950 relative"
+      className="pt-20 pb-10 md:pt-28 md:pb-12 bg-gradient-to-r from-ink-950 via-accent-800 to-ink-950 relative"
     >
       <div ref={productsRef} className="px-4 sm:px-6">
         {/* HEADER */}
@@ -532,7 +718,7 @@ export default function Products() {
 
                     <div className="mt-auto flex w-full gap-3 pt-2 font-secondary">
                       <button
-                        onClick={() => openEnquiry(p)}
+                        onClick={() => setDetailProduct(p)}
                         className="flex-1 rounded-lg px-6 py-3.5 font-semibold border border-white/40 bg-accent hover:bg-accent-700 text-white flex items-center justify-center gap-2"
                       >
                         <span>View</span>
@@ -635,7 +821,7 @@ export default function Products() {
 
                 <div className="mt-auto flex justify-center gap-4">
                   <button
-                    onClick={() => openEnquiry(p)}
+                    onClick={() => setDetailProduct(p)}
                     className="flex-1 max-w-[180px] rounded-lg px-5 py-3 bg-accent text-white font-medium hover:bg-accent-700 transition-all border border-white/40 flex items-center justify-center gap-2"
                   >
                     <span>View</span>
@@ -655,6 +841,20 @@ export default function Products() {
           ))}
         </div>
       </div>
+
+      {/* Product Detail Modal — opened by the card "View" button */}
+      {detailProduct && (
+        <ProductDetailModal
+          product={detailProduct}
+          category={CATEGORIES.find((c) => c.id === detailProduct.cat)}
+          onClose={() => setDetailProduct(null)}
+          onEnquire={() => {
+            const p = detailProduct
+            setDetailProduct(null)
+            openEnquiry(p)
+          }}
+        />
+      )}
 
       {/* Product Enquiry Modal */}
       {enquiryProduct && (

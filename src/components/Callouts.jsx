@@ -11,7 +11,7 @@ const callouts = [
     p: '8,000+ product lines held in ready inventory — pipes, flanges, fittings and bars shipped to 65+ countries with minimal lead time.',
   },
   {
-    img: IMG.flanges,
+    img: IMG.certified,
     h: 'Certified & Fully Traceable',
     p: 'Every consignment ships with EN 10204 3.1 MTC, heat-number traceability and third-party inspection on request.',
   },
@@ -24,15 +24,15 @@ const callouts = [
 
 export default function Callouts() {
   return (
-    <section className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-6 bg-ink-50 px-6 pb-6 pt-20 md:grid md:snap-none md:grid-cols-2 md:overflow-visible md:px-12 md:pt-28 lg:px-16 xl:grid-cols-3">
+    <section className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-6 bg-ink-50 px-6 pb-6 pt-8 md:grid md:snap-none md:grid-cols-2 md:overflow-visible md:px-12 md:pt-28 lg:px-16 xl:grid-cols-3">
       {callouts.map((c) => (
         <a
           key={c.h}
           href="#products"
-          className="group flex aspect-[4/5] w-[82%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-ink-200/60 bg-white shadow-sm transition-all duration-300 hover:border-ink-300 hover:shadow-md md:w-auto"
+          className="group flex w-[82%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-ink-200/60 bg-white shadow-sm transition-all duration-300 hover:border-ink-300 hover:shadow-md md:w-auto"
         >
-          {/* Full-bleed image (fills top, no gaps) */}
-          <div className="relative flex-1 overflow-hidden">
+          {/* Full-bleed image — fixed ratio so every card's image is the same height */}
+          <div className="relative aspect-[9/8] w-full shrink-0 overflow-hidden">
             <img
               src={img(c.img, 700)}
               alt={c.h}
@@ -46,8 +46,8 @@ export default function Callouts() {
             </span>
           </div>
 
-          {/* Text block */}
-          <div className="border-t border-ink-100 bg-white p-6 md:p-8">
+          {/* Text block — absorbs the height difference between cards */}
+          <div className="flex-1 border-t border-ink-100 bg-white p-6 md:p-8">
             <h3 className="mb-1.5 font-primary text-xl font-medium text-ink-900 transition-colors duration-300 group-hover:text-accent md:text-2xl">
               {c.h}
             </h3>

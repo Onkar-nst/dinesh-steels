@@ -5,6 +5,8 @@ export const COMPANY = {
   tagline: 'Precision Steel, Engineered for the World',
   phone: '+91 98200 00000',
   phoneHref: '+919820000000',
+  phone2: '+91 98200 11111',
+  phone2Href: '+919820011111',
   whatsapp: '919820000000',
   email: 'sales@jyothisteels.com',
   email2: 'export@jyothisteels.com',

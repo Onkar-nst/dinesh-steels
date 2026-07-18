@@ -1,50 +1,84 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import {
-  Fuel, FlaskConical, Ship, Zap, Building2, Factory, Plane, Atom, ChevronLeft, ChevronRight,
+  Fuel, FlaskConical, Ship, Zap, Building2, Factory, Plane, Atom,
 } from 'lucide-react'
 import { INDUSTRIES } from '../data/site'
+import { img } from '../data/images'
 
 // Icon per industry (Laser-Tech "Industry Solutions" line-icon style)
 const ICONS = [Fuel, FlaskConical, Ship, Zap, Building2, Factory, Plane, Atom]
 
+// Continuous marquee speed on mobile, in pixels per second.
+const SPEED = 42
+
 export default function Industries() {
   const trackRef = useRef(null)
-  const [active, setActive] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
 
-  const step = () => {
-    const track = trackRef.current
-    if (!track) return 0
-    const card = track.querySelector('[data-card]')
-    if (!card) return 0
-    const gap = parseFloat(getComputedStyle(track).columnGap || '20') || 20
-    return card.offsetWidth + gap
-  }
-
-  const onScroll = () => {
-    const track = trackRef.current
-    if (!track) return
-    const s = step()
-    if (s) setActive(Math.round(track.scrollLeft / s))
-  }
-
-  const scrollByCards = (dir) => {
-    trackRef.current?.scrollBy({ left: dir * step(), behavior: 'smooth' })
-  }
-
-  const goTo = (i) => {
-    trackRef.current?.scrollTo({ left: i * step(), behavior: 'smooth' })
-  }
-
+  // Only the phone layout cruises; on larger screens the track stays a normal
+  // free-scrolling row.
   useEffect(() => {
-    const t = trackRef.current
-    if (!t) return
-    t.addEventListener('scroll', onScroll, { passive: true })
-    return () => t.removeEventListener('scroll', onScroll)
+    const mq = window.matchMedia('(max-width: 767px)')
+    const motionOk = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const sync = () => setIsMobile(mq.matches && motionOk)
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
   }, [])
 
+  // Marquee: nudge scrollLeft every frame and wrap at the halfway point, where
+  // the duplicated second copy of the cards begins — so the seam is invisible.
+  useEffect(() => {
+    const track = trackRef.current
+    if (!isMobile || !track) return
+
+    let raf
+    let prev
+    let held = false
+    const hold = () => { held = true }
+    const release = () => { held = false }
+
+    // Distance after which the track shows the clone in the original's place.
+    // Measured off the first clone rather than scrollWidth/2, which sits half a
+    // flex gap short of the real seam.
+    const loopWidth = () => track.children[INDUSTRIES.length]?.offsetLeft ?? 0
+
+    // Always begin on the first card, flush to the left edge.
+    track.scrollLeft = 0
+
+    const tick = (ts) => {
+      if (prev === undefined) prev = ts
+      const dt = ts - prev
+      prev = ts
+
+      const loop = loopWidth()
+      // Pause while a finger is down so the marquee never fights a drag.
+      if (!held && loop > 0) {
+        let next = track.scrollLeft + (SPEED * dt) / 1000
+        if (next >= loop) next -= loop
+        track.scrollLeft = next
+      }
+      raf = requestAnimationFrame(tick)
+    }
+
+    raf = requestAnimationFrame(tick)
+    track.addEventListener('touchstart', hold, { passive: true })
+    track.addEventListener('touchend', release, { passive: true })
+    track.addEventListener('touchcancel', release, { passive: true })
+    return () => {
+      cancelAnimationFrame(raf)
+      track.removeEventListener('touchstart', hold)
+      track.removeEventListener('touchend', release)
+      track.removeEventListener('touchcancel', release)
+    }
+  }, [isMobile])
+
   return (
-    <section id="industries" className="relative overflow-hidden bg-ink-950 py-20 md:py-28">
+    <section
+      id="industries"
+      className="relative overflow-hidden bg-gradient-to-r from-ink-950 via-accent-800 to-ink-950 py-20 md:py-28"
+    >
       {/* Diagonal red-line accent (top-right) */}
       <div
         className="pointer-events-none absolute right-0 top-0 h-full w-2/3 opacity-40"
@@ -89,65 +123,59 @@ export default function Industries() {
           </motion.p>
         </div>
 
-        {/* Carousel track */}
+        {/* Carousel track — on mobile the list is rendered twice so the
+            continuous scroll can wrap seamlessly at the halfway mark. */}
         <div
           ref={trackRef}
-          className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2"
+          className={`no-scrollbar flex gap-5 overflow-x-auto pb-2 ${
+            isMobile ? '' : 'snap-x snap-mandatory'
+          }`}
         >
-          {INDUSTRIES.map((ind, i) => {
-            const Icon = ICONS[i % ICONS.length]
+          {(isMobile ? [...INDUSTRIES, ...INDUSTRIES] : INDUSTRIES).map((ind, i) => {
+            const Icon = ICONS[(i % INDUSTRIES.length) % ICONS.length]
+            const isClone = i >= INDUSTRIES.length
             return (
               <motion.a
                 href="#contact"
-                key={ind.name}
+                key={isClone ? `${ind.name}-clone` : ind.name}
                 data-card
+                aria-hidden={isClone || undefined}
+                tabIndex={isClone ? -1 : undefined}
                 initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                // On mobile every card must end up visible — the marquee moves
+                // them through the viewport, so a scroll-triggered reveal would
+                // leave off-screen cards stuck at opacity 0.
+                animate={isMobile ? { opacity: 1, y: 0 } : undefined}
+                whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: (i % 4) * 0.08, duration: 0.5 }}
-                className="group flex w-[78%] shrink-0 snap-start flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/[0.02] px-6 py-12 text-center transition-all duration-300 hover:border-accent/50 hover:bg-white/[0.05] sm:w-[46%] lg:w-[31%] xl:w-[23.5%]"
+                className="group relative flex w-[78%] shrink-0 snap-start flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] px-6 py-12 text-center transition-all duration-300 hover:border-accent/50 hover:bg-white/[0.05] sm:w-[46%] lg:w-[31%] xl:w-[23.5%]"
               >
-                <span className="mb-6 grid h-20 w-20 place-items-center rounded-full border border-white/10 bg-white/[0.03] text-white transition-all duration-300 group-hover:border-accent group-hover:bg-accent/10 group-hover:text-accent-400">
+                {/* Industry photo — fades in behind the content on hover */}
+                <img
+                  src={img(ind.img, 700)}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  className="pointer-events-none absolute inset-0 h-full w-full scale-110 object-cover opacity-0 transition-all duration-500 ease-out group-hover:scale-100 group-hover:opacity-100"
+                />
+                {/* Scrim keeps the icon and text just as legible as before */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950/80 via-ink-950/50 to-ink-950/35 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                <span className="relative z-10 mb-6 grid h-20 w-20 place-items-center rounded-full border border-white/10 bg-white/[0.03] text-white transition-all duration-300 group-hover:border-accent group-hover:bg-accent/10 group-hover:text-accent-400">
                   <Icon className="h-9 w-9" strokeWidth={1.5} />
                 </span>
-                <h3 className="font-primary text-lg font-semibold text-white">{ind.name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/45">{ind.desc}</p>
+                <h3 className="relative z-10 font-primary text-lg font-semibold text-white">
+                  {ind.name}
+                </h3>
+                <p className="relative z-10 mt-2 text-sm leading-relaxed text-white/45 transition-colors duration-300 group-hover:text-white/80">
+                  {ind.desc}
+                </p>
               </motion.a>
             )
           })}
         </div>
 
-        {/* Controls: arrows + dash indicators */}
-        <div className="mt-10 flex items-center justify-center gap-5">
-          <button
-            onClick={() => scrollByCards(-1)}
-            aria-label="Previous"
-            className="grid h-11 w-11 place-items-center rounded-full border border-white/20 text-white transition-all hover:border-accent hover:bg-accent"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-
-          <div className="flex items-center gap-2">
-            {INDUSTRIES.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goTo(i)}
-                aria-label={`Go to ${INDUSTRIES[i].name}`}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  i === active ? 'w-8 bg-accent' : 'w-4 bg-white/20 hover:bg-white/40'
-                }`}
-              />
-            ))}
-          </div>
-
-          <button
-            onClick={() => scrollByCards(1)}
-            aria-label="Next"
-            className="grid h-11 w-11 place-items-center rounded-full border border-white/20 text-white transition-all hover:border-accent hover:bg-accent"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
-        </div>
       </div>
     </section>
   )

@@ -43,7 +43,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative h-[92vh] min-h-[680px] w-full overflow-hidden bg-ink-900"
+      className="relative h-[78vh] min-h-[520px] w-full overflow-hidden bg-ink-900 md:h-[92vh] md:min-h-[680px]"
     >
       {/* Background Image Slider */}
       <div className="absolute inset-0">
@@ -67,9 +67,9 @@ export default function Hero() {
       </div>
 
       {/* Main Content Area */}
-      <div className="relative z-10 flex h-full flex-col justify-between px-6 py-12 text-white md:px-12 md:py-16 lg:px-16">
+      <div className="relative z-10 flex h-full flex-col justify-between px-6 py-7 text-white md:px-12 md:py-16 lg:px-16">
         {/* Slide Content */}
-        <div className="flex max-w-2xl flex-1 flex-col justify-center space-y-6">
+        <div className="flex max-w-2xl flex-1 flex-col justify-center space-y-4 md:space-y-6">
           <div className="space-y-3 transition-all duration-700">
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/90 md:text-sm">
               {slides[currentSlide].subtitle}

@@ -68,3 +68,51 @@ const DEMO_PRODUCTS = CATEGORIES.flatMap((c, ci) =>
 )
 
 export const PRODUCTS = [...BASE_PRODUCTS, ...DEMO_PRODUCTS]
+
+// Selling points shown in the product detail popup. Keyed by category so every
+// product inherits a sensible list; a product can override with its own
+// `highlights` array. PLACEHOLDER COPY — review with the client before launch.
+export const CATEGORY_HIGHLIGHTS = {
+  pipes: [
+    'Seamless & welded options in one supply chain',
+    'Hydro-tested and eddy-current verified',
+    'Mill test certificates (EN 10204 3.1) with every lot',
+    'Custom cut lengths and bevelled ends',
+    'Sea-worthy packing for export consignments',
+  ],
+  flanges: [
+    'Machined to ASME B16.5 / B16.47 tolerances',
+    'Full traceability from heat number to despatch',
+    'RF, FF and RTJ facings available',
+    'Third-party inspection welcomed',
+    'Ready stock in common sizes and classes',
+  ],
+  bars: [
+    'Bright, black and centreless-ground finishes',
+    'Tight diameter tolerance for machining',
+    'Ultrasonic tested on request',
+    'Cut-to-length service from stock',
+    'Consistent chemistry across the batch',
+  ],
+  fasteners: [
+    'High-tensile grades for flanged joints',
+    'Matched bolt, nut and washer sets',
+    'Hot-dip galvanised or PTFE coating on request',
+    'Batch-wise mechanical test reports',
+    'Bulk packing for site deliveries',
+  ],
+  dairy: [
+    'Hygienic internal finish for food contact',
+    '3A / SMS / DIN standards supported',
+    'Electropolished surfaces on request',
+    'Quick-release assembly for frequent cleaning',
+    'Food-grade gaskets supplied to match',
+  ],
+  beam: [
+    'Structural grades to IS 2062 / ASTM A36',
+    'Standard and custom section lengths',
+    'Straightness checked before despatch',
+    'Cutting and drilling service available',
+    'Volume pricing for project quantities',
+  ],
+}

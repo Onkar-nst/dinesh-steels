@@ -29,23 +29,8 @@ export default function Process() {
             className="absolute left-0 right-0 top-9 hidden h-px origin-left bg-gradient-to-r from-accent to-accent/20 lg:block"
           />
 
-          {/* Glowing pulse dot that continuously travels along the line */}
-          <motion.span
-            aria-hidden
-            className="absolute top-9 z-20 hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent shadow-[0_0_14px_3px_rgba(47,111,179,0.7)] lg:block"
-            initial={{ left: '0%', opacity: 0 }}
-            whileInView={{ left: ['0%', '100%'], opacity: [0, 1, 1, 0] }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 2.6,
-              ease: 'easeInOut',
-              delay: 1.3,
-              repeat: Infinity,
-              repeatDelay: 1.4,
-            }}
-          />
-
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6">
+          {/* Mobile: swipeable snap-carousel. sm+: reverts to the grid. */}
+          <div className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-10 sm:overflow-visible sm:pb-0 lg:grid-cols-5 lg:gap-6">
             {PROCESS.map((p, i) => {
               const Icon = ICONS[i]
               return (
@@ -55,7 +40,7 @@ export default function Process() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ delay: i * 0.15, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                  className="group relative text-center"
+                  className="group relative w-[38%] shrink-0 snap-start text-center sm:w-auto"
                 >
                   {/* Icon badge — springs in, lifts & rotates on hover */}
                   <motion.div
@@ -69,7 +54,7 @@ export default function Process() {
                       damping: 14,
                     }}
                     whileHover={{ scale: 1.12, rotate: -6, y: -4 }}
-                    className="relative z-10 mx-auto grid h-[72px] w-[72px] cursor-pointer place-items-center rounded-full border-4 border-white bg-ink-900 text-accent-400 shadow-card transition-colors duration-300 group-hover:bg-accent group-hover:text-white"
+                    className="relative z-10 mx-auto grid h-14 w-14 cursor-pointer place-items-center rounded-full border-4 border-white bg-ink-900 text-accent-400 shadow-card transition-colors duration-300 group-hover:bg-accent group-hover:text-white sm:h-[72px] sm:w-[72px]"
                   >
                     {/* Continuous soft pulse ring */}
                     <motion.span
@@ -85,7 +70,7 @@ export default function Process() {
                       }}
                     />
 
-                    <Icon className="relative h-7 w-7" />
+                    <Icon className="relative h-6 w-6 sm:h-7 sm:w-7" />
 
                     {/* Step number — pops in after the icon */}
                     <motion.span
@@ -98,7 +83,7 @@ export default function Process() {
                         stiffness: 400,
                         damping: 12,
                       }}
-                      className="absolute -right-1 -top-1 grid h-7 w-7 place-items-center rounded-full bg-accent text-[11px] font-bold text-white ring-4 ring-white"
+                      className="absolute -right-1 -top-1 grid h-6 w-6 place-items-center rounded-full bg-accent text-[10px] font-bold text-white ring-2 ring-white sm:h-7 sm:w-7 sm:text-[11px] sm:ring-4"
                     >
                       {p.step}
                     </motion.span>
@@ -110,7 +95,7 @@ export default function Process() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.15 + 0.25, duration: 0.5 }}
-                    className="mt-5 font-primary text-lg font-semibold text-ink-900"
+                    className="mt-4 font-primary text-sm font-semibold text-ink-900 sm:mt-5 sm:text-lg"
                   >
                     {p.title}
                   </motion.h3>
@@ -119,7 +104,7 @@ export default function Process() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.15 + 0.35, duration: 0.5 }}
-                    className="mx-auto mt-2 max-w-[15rem] text-sm leading-relaxed text-ink-500"
+                    className="mx-auto mt-1.5 text-[11px] leading-relaxed text-ink-500 sm:mt-2 sm:max-w-[15rem] sm:text-sm"
                   >
                     {p.desc}
                   </motion.p>

@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import SectionHeading from './ui/SectionHeading'
 import { MATERIALS } from '../data/site'
 import { img } from '../data/images'
@@ -26,14 +26,6 @@ export default function Materials() {
     if (!track) return
     const s = step()
     if (s) setActive(Math.round(track.scrollLeft / s))
-  }
-
-  const scrollByCards = (dir) => {
-    trackRef.current?.scrollBy({ left: dir * step(), behavior: 'smooth' })
-  }
-
-  const goTo = (i) => {
-    trackRef.current?.scrollTo({ left: i * step(), behavior: 'smooth' })
   }
 
   useEffect(() => {
@@ -88,7 +80,7 @@ export default function Materials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ delay: (i % 5) * 0.08, duration: 0.5 }}
-              className="group relative aspect-[3/4] w-[45%] shrink-0 snap-start overflow-hidden rounded-2xl sm:w-[32%] lg:w-[23%] xl:w-[18.5%]"
+              className="group relative aspect-[3/4] w-[41%] shrink-0 snap-start overflow-hidden rounded-2xl sm:w-[32%] lg:w-[23%] xl:w-[18.5%]"
             >
               <img
                 src={img(m.img, 500)}
@@ -118,37 +110,6 @@ export default function Materials() {
           ))}
         </div>
 
-        {/* Controls: arrows + dash indicators */}
-        <div className="mt-10 flex items-center justify-center gap-5">
-          <button
-            onClick={() => scrollByCards(-1)}
-            aria-label="Previous"
-            className="grid h-11 w-11 place-items-center rounded-full border border-ink-200 text-ink-600 transition-all hover:border-accent hover:bg-accent hover:text-white"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-
-          <div className="flex items-center gap-2">
-            {MATERIALS.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goTo(i)}
-                aria-label={`Go to ${MATERIALS[i].name}`}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  i === active ? 'w-8 bg-accent' : 'w-4 bg-ink-300 hover:bg-ink-400'
-                }`}
-              />
-            ))}
-          </div>
-
-          <button
-            onClick={() => scrollByCards(1)}
-            aria-label="Next"
-            className="grid h-11 w-11 place-items-center rounded-full border border-ink-200 text-ink-600 transition-all hover:border-accent hover:bg-accent hover:text-white"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
-        </div>
       </div>
     </section>
   )

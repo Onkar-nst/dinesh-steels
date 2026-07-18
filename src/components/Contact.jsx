@@ -7,10 +7,24 @@ import SectionHeading from './ui/SectionHeading'
 import { COMPANY } from '../data/site'
 
 const INFO = [
-  { icon: MapPin, label: 'Head Office', value: COMPANY.address },
-  { icon: Phone, label: 'Call Us', value: COMPANY.phone, href: `tel:${COMPANY.phoneHref}` },
-  { icon: Mail, label: 'Email Us', value: COMPANY.email, href: `mailto:${COMPANY.email}` },
-  { icon: Clock, label: 'Working Hours', value: 'Mon – Sat · 9:30 AM – 7:00 PM IST' },
+  { icon: MapPin, label: 'Head Office', values: [{ text: COMPANY.address }] },
+  {
+    icon: Phone,
+    label: 'Call Us',
+    values: [
+      { text: COMPANY.phone, href: `tel:${COMPANY.phoneHref}` },
+      { text: COMPANY.phone2, href: `tel:${COMPANY.phone2Href}` },
+    ],
+  },
+  {
+    icon: Mail,
+    label: 'Email Us',
+    values: [
+      { text: COMPANY.email, href: `mailto:${COMPANY.email}` },
+      { text: COMPANY.email2, href: `mailto:${COMPANY.email2}` },
+    ],
+  },
+  { icon: Clock, label: 'Working Hours', values: [{ text: 'Mon – Sat · 9:30 AM – 7:00 PM IST' }] },
 ]
 
 export default function Contact() {
@@ -37,27 +51,40 @@ export default function Contact() {
             <div className="grid gap-4 sm:grid-cols-2">
               {INFO.map((it) => {
                 const Icon = it.icon
-                const inner = (
-                  <div className="flex h-full items-start gap-4 rounded-2xl border border-ink-100 bg-ink-50/50 p-5 transition-colors hover:border-accent/30 hover:bg-accent-50/40">
-                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-ink-900 text-accent-400">
+                return (
+                  <div
+                    key={it.label}
+                    className="flex h-full items-start gap-4 rounded-2xl border border-ink-100 bg-ink-50/50 p-5 transition-colors hover:border-accent/30 hover:bg-accent-50/40"
+                  >
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-ink-100 bg-white text-accent shadow-sm">
                       <Icon className="h-5 w-5" />
                     </span>
                     <div>
                       <div className="text-xs font-semibold uppercase tracking-wide text-ink-400">
                         {it.label}
                       </div>
-                      <div className="mt-1 text-sm font-medium leading-relaxed text-ink-800">
-                        {it.value}
+                      <div className="mt-1 space-y-0.5">
+                        {it.values.map((v) =>
+                          v.href ? (
+                            <a
+                              key={v.text}
+                              href={v.href}
+                              className="block text-sm font-medium leading-relaxed text-ink-800 transition-colors hover:text-accent"
+                            >
+                              {v.text}
+                            </a>
+                          ) : (
+                            <div
+                              key={v.text}
+                              className="text-sm font-medium leading-relaxed text-ink-800"
+                            >
+                              {v.text}
+                            </div>
+                          )
+                        )}
                       </div>
                     </div>
                   </div>
-                )
-                return it.href ? (
-                  <a key={it.label} href={it.href}>
-                    {inner}
-                  </a>
-                ) : (
-                  <div key={it.label}>{inner}</div>
                 )
               })}
             </div>

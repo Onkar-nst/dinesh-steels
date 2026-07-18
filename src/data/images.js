@@ -16,6 +16,7 @@ export const IMG = {
   warehouse: P('warehouse'),
   showcase: P('showcase'),
   whyChoose: P('whyChoose'),
+  certified: P('certified'),
 
   // Products
   pipes: P('pipes'),
