@@ -116,3 +116,62 @@ export const CATEGORY_HIGHLIGHTS = {
     'Volume pricing for project quantities',
   ],
 }
+
+// Where each category typically ends up, shown as tags in the product popup.
+// PLACEHOLDER COPY — review with the client before launch.
+export const CATEGORY_APPLICATIONS = {
+  pipes: [
+    'Oil & gas pipelines',
+    'Refinery & petrochemical',
+    'Heat exchangers',
+    'Boiler circuits',
+    'Water treatment',
+    'Process & utility lines',
+  ],
+  flanges: [
+    'Pressure vessel nozzles',
+    'Pipeline joints',
+    'Pump & valve connections',
+    'Offshore platforms',
+    'Power plant piping',
+  ],
+  bars: [
+    'Shafts & spindles',
+    'Machined components',
+    'Fastener manufacturing',
+    'Pump & valve internals',
+    'General engineering',
+  ],
+  fasteners: [
+    'Flanged pipe joints',
+    'Structural steelwork',
+    'Heat exchanger bolting',
+    'Marine & offshore fixing',
+    'Plant maintenance',
+  ],
+  dairy: [
+    'Dairy processing lines',
+    'Breweries & beverages',
+    'Pharmaceutical plants',
+    'Food processing',
+    'Clean-in-place systems',
+  ],
+  beam: [
+    'Industrial sheds & plants',
+    'Bridges & infrastructure',
+    'Fabrication & frames',
+    'Support structures',
+    'Warehouse construction',
+  ],
+}
+
+// Supply terms shown on every product in the popup.
+// PLACEHOLDER COPY — review with the client before launch.
+export const SUPPLY_INFO = [
+  { label: 'Testing', value: 'Hydro, ultrasonic, PMI and eddy-current on request' },
+  { label: 'Documentation', value: 'EN 10204 3.1 mill test certificate with every lot' },
+  { label: 'Packing', value: 'Bundled and capped, sea-worthy wooden crates for export' },
+  { label: 'Lead time', value: 'Ex-stock, or 3–4 weeks for rolling and custom sizes' },
+  { label: 'Despatch terms', value: 'Ex-works, FOB or CIF to any major port' },
+  { label: 'Inspection', value: 'Third-party inspection (TUV, SGS, BV) welcomed' },
+]

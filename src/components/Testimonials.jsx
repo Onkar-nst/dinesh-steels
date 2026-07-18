@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Star, Quote } from 'lucide-react'
+import { Quote } from 'lucide-react'
 import SectionHeading from './ui/SectionHeading'
 import { TESTIMONIALS } from '../data/site'
 
@@ -74,13 +74,7 @@ export default function Testimonials() {
                   key={`${page}-${k}`}
                   className="flex h-full flex-col rounded-2xl border border-ink-200/60 bg-white p-7 shadow-sm transition-shadow duration-300 hover:shadow-md md:p-8"
                 >
-                  <Quote className="mb-4 h-8 w-8 shrink-0 text-accent/25" />
-
-                  <div className="mb-4 flex gap-1">
-                    {Array.from({ length: t.rating }).map((_, s) => (
-                      <Star key={s} className="h-4 w-4 fill-accent text-accent" />
-                    ))}
-                  </div>
+                  <Quote className="mb-5 h-8 w-8 shrink-0 text-accent/25" />
 
                   <p className="flex-1 font-primary text-lg leading-relaxed text-ink-800">
                     “{t.quote}”
@@ -97,6 +91,19 @@ export default function Testimonials() {
             </motion.div>
           </AnimatePresence>
 
+          {/* Page indicator — shows how many more reviews there are */}
+          {pages > 1 && (
+            <div className="mt-8 flex items-center justify-center gap-2">
+              {Array.from({ length: pages }).map((_, n) => (
+                <span
+                  key={n}
+                  className={`h-2 rounded-full transition-all duration-500 ${
+                    n === page ? 'w-7 bg-accent' : 'w-2 bg-ink-300'
+                  }`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

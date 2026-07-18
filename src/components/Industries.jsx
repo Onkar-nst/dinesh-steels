@@ -9,29 +9,28 @@ import { img } from '../data/images'
 // Icon per industry (Laser-Tech "Industry Solutions" line-icon style)
 const ICONS = [Fuel, FlaskConical, Ship, Zap, Building2, Factory, Plane, Atom]
 
-// Continuous marquee speed on mobile, in pixels per second.
+// Continuous marquee speed, in pixels per second — the same at every breakpoint.
 const SPEED = 42
 
 export default function Industries() {
   const trackRef = useRef(null)
-  const [isMobile, setIsMobile] = useState(false)
+  const [running, setRunning] = useState(false)
 
-  // Only the phone layout cruises; on larger screens the track stays a normal
-  // free-scrolling row.
+  // The track cruises on every screen size; only a reduced-motion preference
+  // stops it.
   useEffect(() => {
-    const mq = window.matchMedia('(max-width: 767px)')
-    const motionOk = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const sync = () => setIsMobile(mq.matches && motionOk)
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const sync = () => setRunning(!mq.matches)
     sync()
     mq.addEventListener('change', sync)
     return () => mq.removeEventListener('change', sync)
   }, [])
 
-  // Marquee: nudge scrollLeft every frame and wrap at the halfway point, where
-  // the duplicated second copy of the cards begins — so the seam is invisible.
+  // Marquee: nudge scrollLeft every frame and wrap where the duplicated second
+  // copy of the cards begins — so the seam is invisible.
   useEffect(() => {
     const track = trackRef.current
-    if (!isMobile || !track) return
+    if (!running || !track) return
 
     let raf
     let prev
@@ -53,7 +52,8 @@ export default function Industries() {
       prev = ts
 
       const loop = loopWidth()
-      // Pause while a finger is down so the marquee never fights a drag.
+      // Pause on hover / while a finger is down, so the marquee never fights the
+      // user — and hovering a card holds it still to reveal its photo.
       if (!held && loop > 0) {
         let next = track.scrollLeft + (SPEED * dt) / 1000
         if (next >= loop) next -= loop
@@ -63,16 +63,20 @@ export default function Industries() {
     }
 
     raf = requestAnimationFrame(tick)
+    track.addEventListener('mouseenter', hold)
+    track.addEventListener('mouseleave', release)
     track.addEventListener('touchstart', hold, { passive: true })
     track.addEventListener('touchend', release, { passive: true })
     track.addEventListener('touchcancel', release, { passive: true })
     return () => {
       cancelAnimationFrame(raf)
+      track.removeEventListener('mouseenter', hold)
+      track.removeEventListener('mouseleave', release)
       track.removeEventListener('touchstart', hold)
       track.removeEventListener('touchend', release)
       track.removeEventListener('touchcancel', release)
     }
-  }, [isMobile])
+  }, [running])
 
   return (
     <section
@@ -123,15 +127,13 @@ export default function Industries() {
           </motion.p>
         </div>
 
-        {/* Carousel track — on mobile the list is rendered twice so the
-            continuous scroll can wrap seamlessly at the halfway mark. */}
+        {/* Carousel track — the list is rendered twice so the continuous scroll
+            can wrap seamlessly where the clone takes the original's place. */}
         <div
           ref={trackRef}
-          className={`no-scrollbar flex gap-5 overflow-x-auto pb-2 ${
-            isMobile ? '' : 'snap-x snap-mandatory'
-          }`}
+          className="no-scrollbar flex gap-5 overflow-x-auto overflow-y-hidden pb-2"
         >
-          {(isMobile ? [...INDUSTRIES, ...INDUSTRIES] : INDUSTRIES).map((ind, i) => {
+          {[...INDUSTRIES, ...INDUSTRIES].map((ind, i) => {
             const Icon = ICONS[(i % INDUSTRIES.length) % ICONS.length]
             const isClone = i >= INDUSTRIES.length
             return (
@@ -142,14 +144,12 @@ export default function Industries() {
                 aria-hidden={isClone || undefined}
                 tabIndex={isClone ? -1 : undefined}
                 initial={{ opacity: 0, y: 24 }}
-                // On mobile every card must end up visible — the marquee moves
-                // them through the viewport, so a scroll-triggered reveal would
-                // leave off-screen cards stuck at opacity 0.
-                animate={isMobile ? { opacity: 1, y: 0 } : undefined}
-                whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                // Every card must end up visible — the marquee moves them through
+                // the viewport, so a scroll-triggered reveal would leave the
+                // off-screen ones stuck at opacity 0.
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: (i % 4) * 0.08, duration: 0.5 }}
-                className="group relative flex w-[78%] shrink-0 snap-start flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] px-6 py-12 text-center transition-all duration-300 hover:border-accent/50 hover:bg-white/[0.05] sm:w-[46%] lg:w-[31%] xl:w-[23.5%]"
+                className="group relative flex w-[78%] shrink-0 flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] px-6 py-12 text-center transition-all duration-300 hover:border-accent/50 hover:bg-white/[0.05] sm:w-[46%] lg:w-[31%] xl:w-[23.5%]"
               >
                 {/* Industry photo — fades in behind the content on hover */}
                 <img

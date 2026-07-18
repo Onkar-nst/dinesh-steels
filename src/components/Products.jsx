@@ -20,7 +20,13 @@ import {
   ShieldCheck,
   CheckCircle2,
 } from 'lucide-react'
-import { CATEGORIES, PRODUCTS, CATEGORY_HIGHLIGHTS } from '../data/products'
+import {
+  CATEGORIES,
+  PRODUCTS,
+  CATEGORY_HIGHLIGHTS,
+  CATEGORY_APPLICATIONS,
+  SUPPLY_INFO,
+} from '../data/products'
 import { img } from '../data/images'
 import { COMPANY } from '../data/site'
 
@@ -52,6 +58,7 @@ function ProductDetailModal({ product, category, onClose, onEnquire }) {
   ]
 
   const highlights = product.highlights || CATEGORY_HIGHLIGHTS[product.cat] || []
+  const applications = product.applications || CATEGORY_APPLICATIONS[product.cat] || []
 
   return (
     <div
@@ -79,7 +86,7 @@ function ProductDetailModal({ product, category, onClose, onEnquire }) {
           style={{ maxHeight: '92vh' }}
         >
           {/* LEFT — image + size panel */}
-          <div className="border-b border-ink-900/[0.07] p-6 md:border-b-0 md:border-r md:overflow-y-auto md:p-8">
+          <div className="border-b border-ink-900/[0.07] p-6 md:max-h-[92vh] md:min-h-0 md:border-b-0 md:border-r md:overflow-y-auto md:p-8">
             <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-800 shadow-sm font-primary">
               <span className="h-1.5 w-1.5 rounded-full bg-accent" />
               {category?.name || product.cat}
@@ -99,16 +106,29 @@ function ProductDetailModal({ product, category, onClose, onEnquire }) {
               )}
             </div>
 
-            <div className="mt-5 rounded-xl bg-white p-5 shadow-sm">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-400 font-primary">
-                Size Range
-              </p>
-              <p className="mt-1.5 text-lg font-semibold text-ink-900 font-primary">
-                {product.size}
-              </p>
-            </div>
+            <p className="mt-4 text-sm text-ink-500 font-secondary">{product.grade}</p>
 
-            <p className="mt-5 text-sm text-ink-500 font-secondary">{product.grade}</p>
+            {/* Spec tiles — stacked one per row under the grade line */}
+            <div className="mt-4 grid grid-cols-1 gap-2.5">
+              {specs.map((s) => (
+                <div
+                  key={s.label}
+                  className="flex items-center gap-3 rounded-xl bg-white px-3.5 py-2.5 shadow-sm"
+                >
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-ink-50 text-accent">
+                    <s.icon className="h-3.5 w-3.5" strokeWidth={1.75} />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-ink-400 font-primary">
+                      {s.label}
+                    </p>
+                    <p className="truncate text-[13px] font-semibold text-ink-900 font-primary">
+                      {s.value}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* RIGHT — specs, overview, highlights, actions */}
@@ -121,30 +141,6 @@ function ProductDetailModal({ product, category, onClose, onEnquire }) {
                 <h2 className="mt-2 pr-10 font-primary text-2xl font-bold leading-tight text-ink-900 md:text-3xl">
                   {product.name}
                 </h2>
-              </div>
-
-              {/* Spec tiles */}
-              <div className="border-t border-ink-900/[0.07] px-6 py-6 md:px-9">
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  {specs.map((s) => (
-                    <div
-                      key={s.label}
-                      className="flex items-center gap-3 rounded-xl bg-white p-4 shadow-sm"
-                    >
-                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-ink-50 text-accent">
-                        <s.icon className="h-4 w-4" strokeWidth={1.75} />
-                      </span>
-                      <div className="min-w-0">
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-400 font-primary">
-                          {s.label}
-                        </p>
-                        <p className="truncate text-sm font-semibold text-ink-900 font-primary">
-                          {s.value}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
 
               {/* Overview */}
@@ -176,6 +172,44 @@ function ProductDetailModal({ product, category, onClose, onEnquire }) {
                     </ul>
                   </>
                 )}
+              </div>
+
+              {/* Applications */}
+              {applications.length > 0 && (
+                <div className="border-t border-ink-900/[0.07] px-6 py-6 md:px-9">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-400 font-primary">
+                    Applications
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {applications.map((a) => (
+                      <span
+                        key={a}
+                        className="rounded-full bg-white px-3.5 py-1.5 text-[13px] text-ink-700 shadow-sm font-secondary"
+                      >
+                        {a}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Supply & documentation */}
+              <div className="border-t border-ink-900/[0.07] px-6 py-6 md:px-9">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-400 font-primary">
+                  Supply &amp; Documentation
+                </p>
+                <dl className="mt-3 divide-y divide-ink-900/[0.07]">
+                  {SUPPLY_INFO.map((row) => (
+                    <div key={row.label} className="grid grid-cols-[110px_minmax(0,1fr)] gap-4 py-2.5">
+                      <dt className="text-[13px] font-semibold text-ink-900 font-primary">
+                        {row.label}
+                      </dt>
+                      <dd className="text-[13px] leading-snug text-ink-600 font-secondary">
+                        {row.value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
               </div>
             </div>
 

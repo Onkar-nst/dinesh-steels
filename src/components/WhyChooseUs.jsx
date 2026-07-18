@@ -197,7 +197,7 @@ export default function WhyChooseUs() {
         </div>
 
         {/* CTA sits below the grid so the cards can end level with the image */}
-        <Reveal delay={0.2} className="mt-8">
+        <Reveal delay={0.2} className="mt-8 flex justify-center">
           <a
             href="#contact"
             className="group inline-flex items-center gap-2.5 rounded-lg bg-accent px-7 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-accent/25 transition-all hover:bg-accent-600 hover:shadow-accent/40"

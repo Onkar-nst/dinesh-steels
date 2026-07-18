@@ -16,19 +16,6 @@ export default function Process() {
         />
 
         <div className="relative">
-          {/* Base connector line (desktop) */}
-          <div className="absolute left-0 right-0 top-9 hidden h-px bg-ink-100 lg:block" />
-
-          {/* Accent line that draws in on scroll */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.4, ease: 'easeInOut' }}
-            style={{ transformOrigin: 'left' }}
-            className="absolute left-0 right-0 top-9 hidden h-px origin-left bg-gradient-to-r from-accent to-accent/20 lg:block"
-          />
-
           {/* Mobile: swipeable snap-carousel. sm+: reverts to the grid. */}
           <div className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-10 sm:overflow-visible sm:pb-0 lg:grid-cols-5 lg:gap-6">
             {PROCESS.map((p, i) => {
