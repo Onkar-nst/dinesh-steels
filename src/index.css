@@ -5,6 +5,10 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Without this, Chrome anchors scroll to content below an expanding
+       accordion card, making it appear to open upward instead of pushing
+       the cards below it down. */
+    overflow-anchor: none;
   }
   body {
     @apply font-secondary text-ink-900 bg-white antialiased;

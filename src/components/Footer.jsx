@@ -46,9 +46,9 @@ export default function Footer() {
       </div>
 
       {/* Columns */}
-      <div className="relative container-x grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-5">
-        {/* Brand */}
-        <div className="lg:col-span-1">
+      <div className="relative container-x grid grid-cols-2 gap-x-6 gap-y-10 py-14 sm:grid-cols-2 sm:gap-10 lg:grid-cols-5">
+        {/* Brand — full width on mobile, one column from sm up */}
+        <div className="col-span-2 sm:col-span-1">
           <a href="#home" className="flex items-center gap-2.5">
             <span className="grid h-10 w-10 place-items-center rounded-lg bg-accent font-primary text-lg font-extrabold text-white">
               J

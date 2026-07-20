@@ -8,7 +8,7 @@ export default function FAQ() {
   const [open, setOpen] = useState(0)
 
   return (
-    <section className="section-pad bg-white">
+    <section className="section-pad bg-ink-50/60">
       <div className="container-x grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
         {/* Left */}
         <div className="lg:sticky lg:top-28 lg:self-start">
